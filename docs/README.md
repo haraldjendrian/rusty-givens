@@ -35,3 +35,22 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 | `case-study.md` | Case study overview |
 | `references.md` | Academic references |
 | `assets/logo.png` | Logo for theme |
+
+## How to cite
+
+If you use Rusty Givens in academic work, please cite:
+
+**BibTeX**
+
+```bibtex
+@software{rusty_givens,
+  author = {Jendrian, Harald},
+  title = {Rusty Givens: A modular power system state estimator in Rust},
+  year = {2025},
+  url = {https://github.com/haraldjendrian/rusty-givens}
+}
+```
+
+**Plain text**
+
+> Jendrian, H. (2025). Rusty Givens: A modular power system state estimator in Rust. https://github.com/haraldjendrian/rusty-givens
