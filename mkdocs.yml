@@ -4,9 +4,9 @@
 
 site_name: Rusty Givens
 site_description: A modular AC Weighted Least-Squares State Estimator for power systems in Rust
-site_url: https://staterustimation.readthedocs.io/  # Update after RTD project creation
-repo_url: https://github.com/your-org/StateRustimation  # Update with actual repo URL
-repo_name: StateRustimation
+site_url: https://rusty-givens.readthedocs.io/  # Update after RTD project creation
+repo_url: https://github.com/haraldjendrian/rusty-givens
+repo_name: rusty-givens
 edit_uri: edit/main/docs/
 copyright: Copyright &copy; 2026
 
