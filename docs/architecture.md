@@ -7,20 +7,13 @@ StateRustimation/
 ├── crates/
 │   ├── rusty-givens-core/      # SE kernel (model + solver)
 │   ├── rusty-givens-io/        # I/O: JSON loading, format conversion
-│   ├── gb-case-study/          # Standalone binary for the GB case
-│   └── pro/                    # Pro edition (feature-gated)
-│       ├── rusty-givens-obs/   # Observability Analysis
-│       ├── rusty-givens-red/   # Redundancy Analysis
-│       └── rusty-givens-bdd/   # Bad Data Detection
+│   └── gb-case-study/          # Standalone binary for the GB case
 ├── services/
 │   └── estimate-service/       # HTTP API server (REST + gRPC)
 ├── frontend/                   # Angular web UI
 ├── proto/                      # Protobuf service definitions
 ├── case_study/                 # GB network case data + Python scripts
 └── docs/                       # This documentation (MkDocs)
-```
-
-The free edition includes everything except `crates/pro/`. The Pro crates are compiled conditionally via `--features pro` on the estimate service.
 
 ---
 
@@ -228,8 +221,6 @@ The kernel retains the matrices and vectors from the final iteration so that dow
 | `slack_index` | Index of the slack bus (reference angle) |
 | `measurement_map` | Ordered list of `MeasurementRef` mapping each equation row to its physical measurement |
 
-These artifacts are consumed by the Pro edition's Observability, Redundancy, and Bad Data Detection modules.
-
 ---
 
 ## I/O Layer (`rusty-givens-io`)
@@ -254,15 +245,6 @@ The `estimate-service` binary runs both API transports:
 
 Both APIs share the same `AppState` (loaded case data, last SE result) and call the same `execute_estimation()` function.
 
-### Pro Feature Gate
-
-When compiled with `--features pro`, the service additionally:
-
-- Imports the OBS, RED, and BDD crates
-- Registers additional REST routes (`/api/observability`, `/api/redundancy`, `/api/bdd/*`)
-- Registers additional gRPC services (`ObsService`, `RedService`, `BddService`)
-- Runs an observability check before each SE run (can be skipped via `skip_obs_check`)
-
 ---
 
 ## Angular Frontend
@@ -275,8 +257,6 @@ The frontend is an Angular 18 single-page application with:
 | **Config Panel** | Dropdown for solver formulation and factorization, iteration/tolerance inputs, and a Run button. |
 | **Summary Card** | Convergence status, iteration count, solve time, error metrics (MAE, max error), measurement breakdown, and power balance. |
 | **Results Table** | Per-bus table with estimated and true voltage magnitudes/angles, and per-bus errors. |
-| **Redundancy Panel** | *(Pro only)* Displays redundancy analysis results. |
-
 The frontend proxies `/api` requests to `http://localhost:3001`.
 
 ---
@@ -291,6 +271,4 @@ The frontend proxies `/api` requests to `http://localhost:3001`.
 
 4. **Dual API transport.** The same `execute_estimation()` function is called by both REST and gRPC handlers, ensuring identical behaviour.
 
-5. **Solver artifacts are retained.** The final-iteration Jacobian, residuals, and gain matrix are stored so that post-estimation analyses (BDD, Observability, Redundancy) can run without re-solving.
-
-6. **Free and Pro are a single binary.** The Pro crates are conditionally compiled via Cargo features. The free binary has zero Pro dependencies.
+5. **Solver artifacts are retained.** The final-iteration Jacobian, residuals, and gain matrix are stored so that post-estimation analyses can run without re-solving.

@@ -20,21 +20,17 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Documentation scope
 
-- **Free edition** — detailed implementation documentation covering all solver formulations, zero-injection handling, post-estimation evaluation, the REST/gRPC API, and the Angular frontend.
-- **Pro edition** — capabilities overview describing *what* the Observability, Redundancy, and Bad Data Detection modules can do, without documenting *how* they are implemented.
+Detailed implementation documentation covering all solver formulations, zero-injection handling, post-estimation evaluation, the REST/gRPC API, and the Angular frontend.
 
 ## File structure
 
 | File | Purpose |
 |------|---------|
-| `index.md` | Home page — overview of both editions |
+| `index.md` | Home page — project overview |
 | `quickstart.md` | Build, run, and usage instructions |
 | `architecture.md` | Module structure, solver formulations, zero-injection, post-estimation |
-| `api.md` | Complete REST API reference (free edition) |
-| `sequence-diagram.md` | Mermaid sequence diagrams for startup and estimation flow |
+| `api.md` | Complete REST and gRPC API reference |
 | `case-study.md` | GB network case study overview |
-| `pro.md` | Pro edition capabilities (Observability, Redundancy, BDD) |
-| `references.md` | Academic references |
 
 ## How to cite
 

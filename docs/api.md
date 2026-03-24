@@ -4,7 +4,7 @@ The estimate service exposes a REST API on **port 3001**. All endpoints are pref
 
 ---
 
-## Free Edition Endpoints
+## Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -78,8 +78,6 @@ Runs WLS state estimation with the given configuration.
   "factorization": "SparseCholesky",
   "max_iterations": 50,
   "tolerance": 1e-4,
-  "skip_obs_check": false,
-  "obs_method": "Numerical",
   "zi_enabled": true,
   "zi_sigma": 1e-6,
   "zi_violation_threshold": 1e-3,
@@ -95,8 +93,6 @@ Runs WLS state estimation with the given configuration.
 | `factorization` | `string` | `"SparseCholesky"` | Linear algebra backend: `SparseCholesky`, `SparseLU`, `DenseCholesky`. Used by NormalEquations and EqualityConstrained. |
 | `max_iterations` | `number?` | `50` | Maximum Gauss-Newton iterations |
 | `tolerance` | `number?` | `1e-4` | Convergence tolerance \( \max|\Delta x| \) |
-| `skip_obs_check` | `bool?` | `false` | *(Pro only)* Skip the observability check before estimation |
-| `obs_method` | `string?` | `"Numerical"` | *(Pro only)* Observability method: `Numerical` or `Topological` |
 | `zi_enabled` | `bool?` | `true` | Enable zero-injection bus handling |
 | `zi_sigma` | `number?` | `1e-6` | Standard deviation for virtual zero-injection measurements |
 | `zi_violation_threshold` | `number?` | `1e-3` | Threshold (p.u.) for zero-injection violation reporting |
@@ -129,8 +125,6 @@ Runs WLS state estimation with the given configuration.
       "va_error_deg": 0.0
     }
   ],
-  "bdd": null,
-  "obs_check": null,
   "global_status": { ... },
   "zero_injection": { ... }
 }
@@ -150,8 +144,6 @@ Runs WLS state estimation with the given configuration.
 | `va_mae_deg` | `number` | Mean absolute error — voltage angle (degrees) |
 | `va_max_error_deg` | `number` | Maximum absolute error — voltage angle (degrees) |
 | `buses` | `[BusResult]` | Per-bus estimated vs. true state |
-| `bdd` | `BddPayload?` | *(Pro only)* Inline Chi² and residual test results |
-| `obs_check` | `ObsResultPayload?` | *(Pro only)* Observability check performed before estimation |
 | `global_status` | `GlobalStatusPayload?` | Power flow results, measurement counts, voltage-level statistics (only when converged) |
 | `zero_injection` | `ZeroInjectionReportPayload?` | Zero-injection violation report (only when ZI buses exist) |
 
@@ -278,39 +270,13 @@ Returns the full measurement set with estimated values and residuals (requires a
 
 ---
 
-## Pro Edition Endpoints
-
-When compiled with `--features pro`, the following endpoints are additionally available. See the [Pro Edition](pro.md) page for a capabilities overview.
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/observability` | Run observability analysis |
-| `POST` | `/api/redundancy` | Run redundancy analysis (supports `source: "estimate"` or `"bdd"`) |
-| `POST` | `/api/bdd/run` | Run iterative bad data detection |
-| `GET` | `/api/bdd/bad-data` | Active bad data set |
-| `GET` | `/api/bdd/historical` | Historical bad data set |
-| `GET` | `/api/bdd/alerts` | Current BDD alerts |
-| `POST` | `/api/bdd/reset` | Clear BDD state |
-
----
-
 ## gRPC API
 
 The same functionality is available via gRPC on **port 50051** using protobuf definitions in `proto/rusty_givens/v1/service.proto`.
 
-### Free Edition Services
-
 | Service | RPCs |
 |---------|------|
 | `EstimateService` | `GetNetwork`, `GetTrueState`, `RunEstimate`, `GetLastResult` |
-
-### Pro Edition Services
-
-| Service | RPCs |
-|---------|------|
-| `BddService` | `RunBdd` |
-| `ObsService` | `RunObservability` |
-| `RedService` | `RunRedundancy` |
 
 ---
 

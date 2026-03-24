@@ -2,14 +2,11 @@
 
 A modular **AC Weighted Least-Squares State Estimator** for power systems, written in Rust.
 
-Rusty Givens ships in two editions:
-
-- **Free edition** — fully open-source SE kernel with six solver formulations, zero-injection handling, post-estimation evaluation, a dual REST + gRPC API, and an Angular frontend for the Great Britain transmission grid.
-- **Pro edition** — adds Observability Analysis, Measurement Redundancy Analysis, and iterative Bad Data Detection with measurement lifecycle management.
+Rusty Givens is an open-source SE kernel with six solver formulations, zero-injection handling, post-estimation evaluation, a dual REST + gRPC API, and an Angular frontend for the Great Britain transmission grid.
 
 ---
 
-## Free Edition — Components
+## Components
 
 | Component | Crate / Directory | Description |
 |-----------|-------------------|-------------|
@@ -92,20 +89,6 @@ Both APIs share the same application state and produce identical results.
 
 ---
 
-## Pro Edition — Capabilities
-
-The Pro edition (compiled with `--features pro`) adds three analysis modules that build on top of the free SE kernel:
-
-| Module | Capability |
-|--------|------------|
-| **Observability Analysis** | Determines whether the system is fully observable from the current measurement set. Identifies unobservable buses and islands in both the P-θ and Q-V sub-models. Recommends pseudo-measurement placement. |
-| **Redundancy Analysis** | Classifies every measurement by redundancy level — Critical, No Redundancy, Simply Redundant, Multiply Redundant. Computes Good/Bad marks per bus and branch. Supports before-and-after-BDD comparison. |
-| **Bad Data Detection** | Iterative detection, identification, and elimination of erroneous measurements using Chi-squared and residual tests. Includes measurement lifecycle management with automatic deactivation, release cycles, and historical tracking. |
-
-See the [Pro Edition](pro.md) page for a full capabilities overview.
-
----
-
 ## License
 
-The free edition is released under the **Apache License 2.0**. The Pro edition is available under a separate commercial license.
+Rusty Givens is released under the **Apache License 2.0**.

@@ -12,7 +12,7 @@ Build the workspace, run the estimate service, and launch the Angular frontend.
 
 ---
 
-## Build and Run (Free Edition)
+## Build and Run
 
 ```bash
 # Build the workspace (release mode)
@@ -30,20 +30,6 @@ cd frontend && npm install && npx ng serve
 ```
 
 The frontend proxies `/api` to `http://localhost:3001`. Open [http://localhost:4200](http://localhost:4200) in your browser.
-
----
-
-## Build and Run (Pro Edition)
-
-```bash
-# Build with Pro features enabled
-cargo build --release --features pro
-
-# Run with Pro features
-cargo run --release -p estimate-service --features pro
-```
-
-The Pro build adds Observability Analysis, Redundancy Analysis, and Bad Data Detection endpoints. See the [Pro Edition](pro.md) page for details.
 
 ---
 
